@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Header from "../components/bases/Header.astro";
+import { TooltipProvider } from "@/components/ui/tooltip";
 ---
 
 <html lang="en" class="dark">
@@ -10,9 +11,19 @@ import Header from "../components/bases/Header.astro";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Celestia | Shop</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <Header />
-    <slot />
+    <TooltipProvider>
+      <Header />
+      <slot />
+    </TooltipProvider>
   </body>
 </html>

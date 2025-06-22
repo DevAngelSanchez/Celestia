@@ -1,5 +1,7 @@
 ---
-import "../../styles/global.css";
+import { Search, ShoppingCart, User } from "lucide-react";
+import "@/styles/global.css";
+import NavLinksWrapper from "@/components/navigation/NavLinksWrapper";
 ---
 
 <header
@@ -7,26 +9,24 @@ import "../../styles/global.css";
 >
   <div class="@container mx-auto flex items-center justify-between">
     <div class="logo">
-      <a href="/"> Celestia </a>
+      <a href="/">
+        <picture>
+          <img src="/logo.svg" alt="Celestia Logo" />
+        </picture>
+      </a>
     </div>
-    <form action="">
-      <select name="category" id="category-select">
-        <option value="all">All Categories</option>
-        <option value="tech">Tech</option>
-        <option value="lifestyle">Lifestyle</option>
-        <option value="travel">Travel</option>
-        <option value="food">Food</option>
-        <option value="health">Health</option>
-      </select>
-      <input type="text" placeholder="Search..." />
-      <button type="submit">Search</button>
+    <form action="" class="h-9 max-w-[480px] w-full">
+      <div class="relative h-full w-full">
+        <input
+          type="text"
+          placeholder="Buscar Producto..."
+          class="outline-none focus:outline-primary h-full rounded-md p-2 pr-12 text-secondary w-full text-sm font-semibold"
+        />
+        <button type="submit" class="absolute top-2 right-2 text-secondary">
+          <Search size={20} />
+        </button>
+      </div>
     </form>
-    <nav>
-      <ul>
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/about">Acerca de</a></li>
-        <li><a href="/contact">Contacto</a></li>
-      </ul>
-    </nav>
+    <NavLinksWrapper client:load />
   </div>
 </header>
