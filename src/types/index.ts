@@ -1,18 +1,29 @@
 // src/types/nav.ts (ejemplo de ubicación)
 import * as LucideIcons from 'lucide-react';
 
-// Este tipo ya lo teníamos en NavLinkWithTooltip.tsx
 type IconName = keyof typeof LucideIcons;
 
 export interface NavLink {
   href: string;
   label: string;
-  tooltipContent?: string; // Es opcional en el componente, hazlo opcional aquí también
-  iconName?: IconName; // ¡Aquí es donde usamos el tipo de unión de nombres de iconos!
+  tooltipContent?: string;
+  iconName?: IconName;
 }
 
 export interface Category {
   id: number;
   name: string;
   subcategory_of: number | null;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  by_size: boolean;
+  sizes?: string[]; // Opcional, si el producto tiene tamaños
+  categoryId: number;
+  category?: Category; // Relación opcional con la categoría
 }
