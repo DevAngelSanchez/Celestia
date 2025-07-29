@@ -10,3 +10,9 @@ export interface NavLink {
   tooltipContent?: string; // Es opcional en el componente, hazlo opcional aquí también
   iconName?: IconName; // ¡Aquí es donde usamos el tipo de unión de nombres de iconos!
 }
+
+export interface Category {
+  id: number;
+  name: string;
+  subcategory_of: number | null;
+}

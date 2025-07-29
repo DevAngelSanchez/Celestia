@@ -10,9 +10,8 @@ export function NavLinkWithTooltip({ href, label, tooltipContent, iconName }: Na
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <a href={href} className="flex items-center gap-2 p-2 border-b-2 border-transparent hover:border-b-white transition-colors ">
+        <a href={href} className="flex items-center gap-2 border-b-2 border-transparent hover:border-b-white transition-colors ">
           {IconComponent && <IconComponent className="w-5 h-5" />}
-          <span>{label}</span>
         </a>
       </TooltipTrigger>
       {tooltipContent && (

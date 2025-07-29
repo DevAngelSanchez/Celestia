@@ -5,10 +5,10 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 export default function NavLinkWrapper() {
   const navLinks: NavLink[] = [
     {
-      href: "/",
-      label: "Inicio",
-      tooltipContent: "Inicio",
-      iconName: "House",
+      href: "/user-profile",
+      label: "Perfil",
+      tooltipContent: "Perfil",
+      iconName: "User",
     },
     {
       href: "/cart",
@@ -16,19 +16,13 @@ export default function NavLinkWrapper() {
       tooltipContent: "Carrito",
       iconName: "ShoppingCart",
     },
-    {
-      href: "/user-profile",
-      label: "Perfil",
-      tooltipContent: "Perfil",
-      iconName: "User",
-    },
   ];
   return (
     <TooltipProvider>
       {
         navLinks && (
-          <nav>
-            <ul className="flex items-center justify-center gap-4">
+          <nav className="h-full flex items-start justify-center">
+            <ul className="flex items-start justify-center gap-4">
               {navLinks.map((link, i) => (
                 <NavLinkWithTooltip
                   key={i}

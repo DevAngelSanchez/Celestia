@@ -1,32 +1,35 @@
 ---
-import { Search, ShoppingCart, User } from "lucide-react";
 import "@/styles/global.css";
+import { Search } from "lucide-react";
 import NavLinksWrapper from "@/components/navigation/NavLinksWrapper";
+import CategoriesNavWrapper from "../categories/CategoriesNavWrapper";
 ---
 
-<header
-  class="w-full bg-background text-foreground p-4 shadow-md border-b border-gray-200"
->
-  <div class="@container mx-auto flex items-center justify-between">
-    <div class="logo">
-      <a href="/">
-        <picture>
-          <img src="/logo.svg" alt="Celestia Logo" />
-        </picture>
-      </a>
+<header class="w-full p-4 border-b">
+  <div class="w-full flex flex-col gap-2">
+    <div class="flex items-center justify-between gap-2">
+      <picture>
+        <source srcset="/img/logo.webp" type="image/webp" />
+        <img src="/img/logo.png" alt="Celestia Logo" class="w-20" />
+      </picture>
+      <form action="" class="h-9 max-w-[550px] w-full">
+        <div class="relative h-full w-full">
+          <input
+            type="text"
+            id="search"
+            placeholder="Buscar Producto..."
+            class="outline-none focus:outline-none h-full p-2 pr-12 text-black w-full text-sm font-semibold border border-black"
+          />
+          <button
+            type="submit"
+            class="absolute top-0 right-0 text-secondary bg-black h-9 w-9 flex items-center justify-center hover:bg-primary transition-colors"
+          >
+            <Search size={20} />
+          </button>
+        </div>
+      </form>
+      <NavLinksWrapper client:load />
     </div>
-    <form action="" class="h-9 max-w-[480px] w-full">
-      <div class="relative h-full w-full">
-        <input
-          type="text"
-          placeholder="Buscar Producto..."
-          class="outline-none focus:outline-primary h-full rounded-md p-2 pr-12 text-secondary w-full text-sm font-semibold"
-        />
-        <button type="submit" class="absolute top-2 right-2 text-secondary">
-          <Search size={20} />
-        </button>
-      </div>
-    </form>
-    <NavLinksWrapper client:load />
+    <CategoriesNavWrapper client:load />
   </div>
 </header>
