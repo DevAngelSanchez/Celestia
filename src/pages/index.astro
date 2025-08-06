@@ -1,8 +1,14 @@
 ---
-import ProductCard from "@/components/products/ProductCard";
+import Login from "@/components/forms/login.astro";
 import Layout from "../layouts/layout.astro";
+import { actions } from "astro:actions";
+
+const { data: products, error } = await Astro.callAction(
+	actions.product.getProducts,
+	{},
+);
 ---
 
 <Layout>
-	<!-- <ProductCard client:load /> -->
+	<Login />
 </Layout>
