@@ -20,10 +20,28 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  imageUrl: string;
   price: number;
-  by_size: boolean;
-  sizes?: string[]; // Opcional, si el producto tiene tamaños
-  categoryId: number;
-  category?: Category; // Relación opcional con la categoría
+  category?: number | null;
+  created_at?: string;
+}
+
+export interface ProductVariant {
+  id: number;
+  product: Product;
+  color: string;
+  productimages: ProductImage[];
+  productsizes?: ProductSize[];
+}
+
+export interface ProductImage {
+  id: number;
+  productVariant: number;
+  image: string;
+}
+
+export interface ProductSize {
+  id: number;
+  productVariant: number;
+  size: string;
+  stock: number;
 }

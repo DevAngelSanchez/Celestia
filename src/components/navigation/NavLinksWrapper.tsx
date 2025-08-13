@@ -1,20 +1,20 @@
-import type { NavLink } from "@/types";
+import type { NavLink } from "@/types/types";
 import { NavLinkWithTooltip } from "./NavLinkWithTooltip";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 export default function NavLinkWrapper() {
   const navLinks: NavLink[] = [
     {
-      href: "/user-profile",
-      label: "Perfil",
-      tooltipContent: "Perfil",
-      iconName: "User",
-    },
-    {
       href: "/cart",
       label: "Carrito",
       tooltipContent: "Carrito",
       iconName: "ShoppingCart",
+    },
+    {
+      href: "/user-profile",
+      label: "Perfil",
+      tooltipContent: "Perfil",
+      iconName: "User",
     },
   ];
   return (

@@ -2,27 +2,29 @@
 import "@/styles/global.css";
 import { Search } from "lucide-react";
 import NavLinksWrapper from "@/components/navigation/NavLinksWrapper";
-import CategoriesNavWrapper from "../categories/CategoriesNavWrapper";
+import CategoriesNavWrapper from "../categories/CategoriesNavWrapper.astro";
 ---
 
-<header class="w-full p-4 border-b">
+<header class="w-full border-b bg-primary">
   <div class="w-full flex flex-col gap-2">
-    <div class="flex items-center justify-between gap-2">
-      <picture>
-        <source srcset="/img/logo.webp" type="image/webp" />
-        <img src="/img/logo.png" alt="Celestia Logo" class="w-20" />
-      </picture>
-      <form action="" class="h-9 max-w-[550px] w-full">
+    <div class="flex items-center justify-between gap-2 px-4 py-2">
+      <a href="/">
+        <picture>
+          <source srcset="/img/logo 2.png" type="image/png" />
+          <img src="/img/logo 2.png" alt="Celestia Logo" class="w-20" />
+        </picture>
+      </a>
+      <form action="" class="h-10 max-w-[550px] w-full">
         <div class="relative h-full w-full">
           <input
             type="text"
             id="search"
             placeholder="Buscar Producto..."
-            class="outline-none focus:outline-none h-full p-2 pr-12 text-black w-full text-sm font-semibold border border-black"
+            class="outline-none focus:outline-none h-full p-2 pr-12 text-black w-full text-sm font-semibold border rounded-sm bg-white"
           />
           <button
             type="submit"
-            class="absolute top-0 right-0 text-secondary bg-black h-9 w-9 flex items-center justify-center hover:bg-primary transition-colors"
+            class="absolute top-0 right-0 text-black h-10 w-10 flex items-center justify-center hover:bg-primary/10 transition-colors border-none"
           >
             <Search size={20} />
           </button>
@@ -30,6 +32,6 @@ import CategoriesNavWrapper from "../categories/CategoriesNavWrapper";
       </form>
       <NavLinksWrapper client:load />
     </div>
-    <CategoriesNavWrapper client:load />
+    <CategoriesNavWrapper />
   </div>
 </header>

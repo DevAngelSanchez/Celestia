@@ -1,0 +1,52 @@
+---
+import api from "@/config/axios/api";
+import Layout from "@/layouts/layout.astro";
+import type { ProductVariant } from "@/types/types";
+
+export async function getStaticPaths() {
+  const response = await api.get<ProductVariant[]>("productvariants/");
+  return response.data.map((variant: any) => ({
+    params: {
+      id: variant.id.toString(),
+    },
+    props: {
+      name: variant.product.name,
+      color: variant.color,
+      price: variant.product.price,
+      images: variant.productimages,
+      sizes: variant.productsizes || [],
+    },
+  }));
+}
+
+const { id } = Astro.params;
+const { name, color, price, images, sizes } = Astro.props;
+---
+
+<Layout>
+  <div class="w-full flex flex-col items-center justify-center gap-4">
+    <h1 class="text-2xl font-bold">{name}</h1>
+    <p class="text-lg text-gray-700">Color: {color}</p>
+    <p class="text-xl font-semibold text-primary">Price: ${price}</p>
+    <div class="flex flex-wrap gap-4">
+      {
+        images.map((image: any) => (
+          <img src={image.image} alt={name} class="w-32 h-32 object-cover" />
+        ))
+      }
+    </div>
+    <div class="flex flex-col gap-2">
+      <label for="size" class="font-semibold">Select Size:</label>
+      <select id="size" class="border rounded p-2">
+        {
+          sizes.map((size: any) => (
+            <option value={size.size}>
+              {size.size} - Stock: {size.stock}
+            </option>
+          ))
+        }
+      </select>
+    </div>
+    <button> Add to Cart </button>
+  </div>
+</Layout>

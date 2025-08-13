@@ -1,0 +1,33 @@
+---
+import api from "@/config/axios/api";
+import CategoryNavLink from "./CategoryNavLink.astro";
+import type { Category } from "@/types/types";
+
+const result = await api.get("categories/");
+const categories: Category[] = result.data;
+---
+
+<nav class="bg-black/20">
+  <ul class="flex justify-center items-center gap-6 my-4">
+    {
+      categories &&
+        categories
+          .slice(0, 4)
+          .map((category) => (
+            <CategoryNavLink
+              key={category.id}
+              href={`/categorias/${category.id}`}
+              label={category.name}
+            />
+          ))
+    }
+    <li>
+      <a
+        href="/categorias"
+        class="flex items-center gap-1 text-white font-semibold text-sm border-b-2 border-transparent hover:border-white transition-colors"
+      >
+        <span>Ver todas</span>
+      </a>
+    </li>
+  </ul>
+</nav>

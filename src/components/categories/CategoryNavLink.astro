@@ -1,0 +1,12 @@
+---
+const { key, href, label } = Astro.props;
+---
+
+<li data-key={key}>
+  <a
+    href={href}
+    class="flex items-center gap-1 text-white font-semibold text-sm border-b-2 border-transparent hover:border-white transition-colors"
+  >
+    <span>{label}</span>
+  </a>
+</li>

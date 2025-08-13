@@ -1,14 +1,10 @@
 ---
-import Login from "@/components/forms/login.astro";
+import HighlightProducts from "@/components/bases/HighlightProducts.astro";
 import Layout from "../layouts/layout.astro";
-import { actions } from "astro:actions";
-
-const { data: products, error } = await Astro.callAction(
-	actions.product.getProducts,
-	{},
-);
+import Hero from "@/components/bases/Hero.astro";
 ---
 
 <Layout>
-	<Login />
+	<Hero />
+	<HighlightProducts />
 </Layout>
