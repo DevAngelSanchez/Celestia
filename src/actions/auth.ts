@@ -1,28 +1,46 @@
-// src/actions/index.ts
+// src/actions/auth.ts
+import api from '@/config/axios/api';
+import { defineAction } from 'astro:actions';
+import { z } from 'astro:schema';
+// Importa nuestras nuevas funciones de ayuda
+import { saveSession, destroySession } from '@/lib/session';
 
-import api from "@/config/axios/api";
-import { defineAction } from "astro:actions";
-import { z } from "astro:schema";
-
-// Correct way to define actions
 export const auth = {
   login: defineAction({
-    accept: "form",
+    accept: 'form',
     input: z.object({
-      email: z.string().email(),
-      password: z.string().min(6).max(100),
+      username: z.string(),
+      password: z.string().min(6),
     }),
     async handler(input, context) {
+      try {
+        const response = await api.post('token/', {
+          username: input.username,
+          password: input.password,
+        });
 
-      const { email, password } = input;
+        const { access, refresh, username, user_id } = response.data;
 
-      const response = await api.post("token/", {
-        email,
-        password,
-      });
-      const data = await response.data;
-      console.log("data: ", data);
+        // Usa la nueva función para guardar la sesión
+        await saveSession(context.cookies, {
+          accessToken: access,
+          refreshToken: refresh,
+          username,
+          user_id
+        });
 
+        return { success: true, redirectUri: "/" };
+      } catch (error) {
+        throw new Error('Usuario o contraseña inválida');
+      }
     },
   }),
-}
+
+  logout: defineAction({
+    async handler(_, context) {
+      destroySession(context.cookies);
+
+      return { success: true, redirectUri: "/" };
+    },
+  }),
+};

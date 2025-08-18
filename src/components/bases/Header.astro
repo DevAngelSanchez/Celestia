@@ -30,8 +30,26 @@ import CategoriesNavWrapper from "../categories/CategoriesNavWrapper.astro";
           </button>
         </div>
       </form>
-      <NavLinksWrapper client:load />
+      <div class="flex gap-2">
+        <NavLinksWrapper client:load />
+        <button id="logout">Cerrar sesion</button>
+      </div>
     </div>
     <CategoriesNavWrapper />
   </div>
 </header>
+
+<script>
+  import { actions } from "astro:actions";
+  import { navigate } from "astro:transitions/client";
+  const logoutButton = document.getElementById("logout");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      await actions.auth.logout();
+      navigate("/");
+    });
+  }
+</script>

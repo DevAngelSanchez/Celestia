@@ -1,37 +1,36 @@
 ---
+export const prerender = false;
+import Header from "@/components/bases/Header.astro";
 import api from "@/config/axios/api";
 import Layout from "@/layouts/layout.astro";
 import type { ProductVariant } from "@/types/types";
 
-export async function getStaticPaths() {
-  const response = await api.get<ProductVariant[]>("productvariants/");
-  return response.data.map((variant: any) => ({
-    params: {
-      id: variant.id.toString(),
-    },
-    props: {
-      name: variant.product.name,
-      color: variant.color,
-      price: variant.product.price,
-      images: variant.productimages,
-      sizes: variant.productsizes || [],
-    },
-  }));
-}
-
 const { id } = Astro.params;
-const { name, color, price, images, sizes } = Astro.props;
+let productData = null;
+try {
+  const response = await api.get<ProductVariant>(`productvariants/${id}/`);
+  productData = response.data;
+} catch (error) {
+  console.error("No se pudo encontrar el producto:", error);
+}
 ---
 
 <Layout>
+  <Header />
   <div class="w-full flex flex-col items-center justify-center gap-4">
-    <h1 class="text-2xl font-bold">{name}</h1>
-    <p class="text-lg text-gray-700">Color: {color}</p>
-    <p class="text-xl font-semibold text-primary">Price: ${price}</p>
+    <h1 class="text-2xl font-bold">{productData?.product.name}</h1>
+    <p class="text-lg text-gray-700">Color: {productData?.color}</p>
+    <p class="text-xl font-semibold text-primary">
+      Price: ${productData?.product.price}
+    </p>
     <div class="flex flex-wrap gap-4">
       {
-        images.map((image: any) => (
-          <img src={image.image} alt={name} class="w-32 h-32 object-cover" />
+        productData?.productimages.map((image: any) => (
+          <img
+            src={image.image}
+            alt={productData.product.name}
+            class="w-32 h-32 object-cover"
+          />
         ))
       }
     </div>
@@ -39,7 +38,7 @@ const { name, color, price, images, sizes } = Astro.props;
       <label for="size" class="font-semibold">Select Size:</label>
       <select id="size" class="border rounded p-2">
         {
-          sizes.map((size: any) => (
+          productData?.productsizes?.map((size: any) => (
             <option value={size.size}>
               {size.size} - Stock: {size.stock}
             </option>

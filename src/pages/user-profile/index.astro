@@ -1,0 +1,25 @@
+---
+// export const prerender = false;
+import Header from "@/components/bases/Header.astro";
+import Layout from "@/layouts/layout.astro";
+
+const { isLoggedIn, accessToken, username } = Astro.locals;
+console.log(username);
+---
+
+<Layout>
+  <Header />
+  <main>
+    <h2>User Profile</h2>
+    {
+      isLoggedIn ? (
+        <p>Welcome back! Your access token is: {username}</p>
+      ) : (
+        <div>
+          <p>Please log in to view your profile.</p>
+          <a href="/login">Login</a>
+        </div>
+      )
+    }
+  </main>
+</Layout>
