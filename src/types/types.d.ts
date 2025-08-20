@@ -13,6 +13,7 @@ export interface NavLink {
 export interface Category {
   id: number;
   name: string;
+  slug: string;
   subcategory_of: number | null;
 }
 
@@ -20,28 +21,23 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  price: number;
   category?: number | null;
+  slug: string;
   created_at?: string;
 }
 
 export interface ProductVariant {
   id: number;
   product: Product;
-  color: string;
-  productimages: ProductImage[];
-  productsizes?: ProductSize[];
+  sku: string;
+  stock: number;
+  price: number;
+  attributes: {}
+  productimages: ProductImageVariant[];
 }
 
-export interface ProductImage {
+export interface ProductImageVariant {
   id: number;
   productVariant: number;
   image: string;
-}
-
-export interface ProductSize {
-  id: number;
-  productVariant: number;
-  size: string;
-  stock: number;
 }

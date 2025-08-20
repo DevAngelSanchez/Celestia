@@ -3,8 +3,8 @@ import api from "@/config/axios/api";
 import CategoryNavLink from "./CategoryNavLink.astro";
 import type { Category } from "@/types/types";
 
-const result = await api.get("categories/");
-const categories: Category[] = result.data;
+const response = await fetch(`${Astro.url.origin}/api/categories/`);
+const categories: Category[] = await response.json();
 ---
 
 <nav class="bg-black/20">

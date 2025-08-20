@@ -2,19 +2,19 @@
 import "@/styles/global.css";
 import { Title } from "@/components/ui/Title";
 import api from "@/config/axios/api";
-import type { ProductVariant } from "@/types/types";
+import type { ProductVariant } from "@/lib/mock-data";
 import { ProductCard } from "@/components/cards/ProductCard";
 
-const result = await api.get("productvariants/");
-const productVariants: ProductVariant[] = result.data;
+const response = await fetch(`${Astro.url.origin}/api/productVariants/`);
+const productVariants: ProductVariant[] = await response.json();
 
 const products = productVariants.slice(0, 6).map((variant) => {
   return {
     id: variant.id,
     name: variant.product.name + " " + variant.color,
     description: variant.product.description,
-    price: variant.product.price,
-    imageUrl: variant.productimages[0].image,
+    price: variant.price,
+    imageUrl: variant.images[0].image,
   };
 });
 ---
